@@ -1,9 +1,11 @@
 const videosContainer = document.getElementById('videosContainer');
 
+const videoIdInput = document.getElementById('videoId');
+
 let youTubeVideoIds = [];
 
 const loadVideos = () => {
-  youTubeVideoIds = ["rEa99-NQ9Bk", "BZLLP7Gk3ps"];
+  youTubeVideoIds = JSON.parse(localStorage.getItem('youTubeVideoIds')) || [];
 };
 
 const displayVideos = () => {
@@ -14,6 +16,15 @@ const displayVideos = () => {
   `).join('');
   videosContainer.innerHTML = videosHTMLString;
 
+};
+
+const saveVideo = (e) => {
+  e.preventDefault();
+  const videoId = videoIdInput.value;
+  youTubeVideoIds.unshift(videoId);
+  videoIdInput.value = "";
+  localStorage.setItem('youTubeVideoIds', JSON.stringify(youTubeVideoIds));
+  displayVideos();
 };
 
 loadVideos();
